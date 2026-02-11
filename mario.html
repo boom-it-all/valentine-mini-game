@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mario Mini Game</title>
+    <style>
+        body { background: lightblue; }
+        #game { position: relative; width: 800px; height: 400px; margin: auto; border: 2px solid black; overflow: hidden; }
+        .mario { width: 50px; height: 50px; background: url('https://example.com/mario.png') no-repeat; position: absolute; bottom: 0; }
+        .obstacle { width: 40px; height: 40px; background: brown; position: absolute; }
+    </style>
+</head>
+<body>
+    <h1>Mario Platformer Game</h1>
+    <div id="game">
+        <div id="mario" class="mario"></div>
+        <div class="obstacle" style="left: 600px;"></div>
+    </div>
+    <script>
+        let mario = document.getElementById('mario');
+        let game = document.getElementById('game');
+        let jump = false;
+
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && !jump) {
+                jump = true;
+                mario.style.bottom = '150px';
+                setTimeout(() => {
+                    mario.style.bottom = '0px';
+                    jump = false;
+                }, 500);
+            }
+        });
+
+        let obstacle = document.querySelector('.obstacle');
+        let obstacleInterval = setInterval(() => {
+            let obstaclePosition = parseInt(window.getComputedStyle(obstacle).getPropertyValue('left'));
+            if (obstaclePosition < 0) {
+                obstacle.style.left = '800px';
+            } else {
+                obstacle.style.left = obstaclePosition - 5 + 'px';
+            }
+        }, 20);
+    </script>
+</body>
+</html>
