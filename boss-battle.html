@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boss Battle</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+        #gameCanvas {
+            border: 1px solid #fff;
+            display: block;
+            margin: 20px auto;
+            background: #222;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Boss Battle!</h1>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <div id="victoryMessage" class="hidden">You unlocked the letter 'A'!</div>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let player = { x: 50, y: 300, width: 30, height: 30, health: 3 };
+        let boss = { x: 700, y: 300, width: 50, height: 50, health: 5 };
+        let keys = {};
+
+        document.addEventListener('keydown', (e) => { keys[e.key] = true; });
+        document.addEventListener('keyup', (e) => { keys[e.key] = false; });
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawPlayer();
+            drawBoss();
+            handleCollision();
+            requestAnimationFrame(gameLoop);
+        }
+
+        function drawPlayer() {
+            ctx.fillStyle = 'green';
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+            if (keys['ArrowRight']) player.x += 5;
+            if (keys['ArrowLeft']) player.x -= 5;
+            if (keys['ArrowUp']) player.y -= 5;
+            if (keys['ArrowDown']) player.y += 5;
+        }
+
+        function drawBoss() {
+            ctx.fillStyle = 'red';
+            ctx.fillRect(boss.x, boss.y, boss.width, boss.height);
+        }
+
+        function handleCollision() {
+            if (keys['Space'] && player.x + player.width > boss.x && player.x < boss.x + boss.width) {
+                boss.health--;
+                if (boss.health <= 0) {
+                    document.getElementById('victoryMessage').classList.remove('hidden');
+                }
+            }
+        }
+
+        gameLoop();
+    </script>
+</body>
+</html>
