@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Mini Game Hub</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #ffebee; color: #880e4f; }
+        h1 { margin-top: 20px; }
+        #game-menu { margin: 50px 0; }
+        .game { margin: 10px; padding: 20px; border: 2px solid #880e4f; display: inline-block; border-radius: 10px; }
+        #letters { margin-top: 30px; font-size: 24px; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Valentine's Mini Game Hub!</h1>
+    <div id="game-menu">
+        <div class="game" onclick="revealLetter('L')">Play Mario</div>
+        <div class="game" onclick="revealLetter('Y')">Play Flappy Bird</div>
+        <div class="game" onclick="revealLetter('L')">Play Megaman</div>
+        <div class="game" onclick="revealLetter('A')">Play Metroid/Hollow Knight Boss Battle</div>
+    </div>
+    <div id="letters"><strong>Letters Revealed: </strong><span id="revealed-letters"></span></div>
+    <script>
+        let revealedLetters = '';
+        function revealLetter(letter) {
+            revealedLetters += letter;
+            document.getElementById('revealed-letters').innerText = revealedLetters;
+            alert('You revealed: ' + letter);
+        }
+    </script>
+</body>
+</html>
